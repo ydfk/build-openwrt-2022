@@ -2,10 +2,11 @@
 ###
  # @Description: Copyright (c) ydfk. All rights reserved
  # @Author: ydfk
- # @Date: 2021-12-19 07:15:14
+ # @Date: 2021-12-17 10:52:22
  # @LastEditors: ydfk
- # @LastEditTime: 2022-02-20 13:21:41
+ # @LastEditTime: 2022-03-11 15:21:00
 ### 
+
 # Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
 # DIY扩展二合一了，在此处可以增加插件
 # 自行拉取插件之前请SSH连接进入固件配置里面确认过没有你要的插件再单独拉取你需要的插件
@@ -14,17 +15,16 @@
 # 如果你的OP是当主路由的话，网关、DNS、广播都不需要，代码前面加 # 注释掉，只保留后台地址和子网掩码就可以
 # 如果你有编译ipv6的话，‘去掉LAN口使用内置的 IPv6 管理’代码前面也加 # 注释掉
 
-
-
 cat >$NETIP <<-EOF
-uci set network.lan.ipaddr='10.0.0.1'                                    # IPv4 地址(openwrt后台地址)
+uci set network.lan.ipaddr='10.0.0.1'                                       # IPv4 地址(openwrt后台地址)
 uci set network.lan.netmask='255.255.255.0'                                 # IPv4 子网掩码
 uci set network.lan.gateway='192.168.2.1'                                   # IPv4 网关
 uci set network.lan.broadcast='192.168.2.255'                               # IPv4 广播
-uci set network.lan.dns='223.5.5.5 119.29.29.29 8.8.8.8'                         # DNS(多个DNS要用空格分开)
+uci set network.lan.dns='223.5.5.5 119.29.29.29 8.8.8.8'                    # DNS(多个DNS要用空格分开)
 uci set network.lan.delegate='0'                                            # 去掉LAN口使用内置的 IPv6 管理
 uci set network.lan.ifname='eth1 eth2 eth3 eth4 eth5'
-uci commit network                                                          # 不要删除跟注释,除非上面全部删除或注释掉了
+uci set network.lan.ip6assign='56'
+uci commit network                                                           # 不要删除跟注释,除非上面全部删除或注释掉了
 #uci set dhcp.lan.ignore='1'                                                 # 关闭DHCP功能（去掉uci前面的#生效）
 #uci commit dhcp                                                             # 跟‘关闭DHCP功能’联动,同时启用或者删除跟注释（去掉uci前面的#生效）
 uci set system.@system[0].hostname='OpenWrt-ydfk'                            # 修改主机名称为OpenWrt-123
@@ -35,7 +35,9 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/M
 
 sed -i "s/OpenWrt /${Author} compiled in $(TZ=UTC-8 date "+%Y.%m.%d") @ OpenWrt /g" $ZZZ           # 增加个性名字 ${Author} 默认为你的github帐号
 
-sed -i '/CYXluq4wUazHjmCDBCqXF/d' $ZZZ                                                             # 设置密码为空
+# sed -i '/CYXluq4wUazHjmCDBCqXF/d' $ZZZ                                                             # 设置密码为空
+
+sed -i 's#root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0:0:99999:7:::#root:$1$SgCjz9xF$hxjDmsGaja9mXefc33cCb/:19058:0:99999:7:::#g' $ZZZ  # 设置密码为你的完整密码
 
 sed -i 's/PATCHVER:=5.10/PATCHVER:=5.15/g' target/linux/x86/Makefile                               # x86机型,默认内核5.10，修改内核为5.15（去掉sed前面的#生效）
 
