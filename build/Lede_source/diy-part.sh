@@ -30,9 +30,9 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/M
 
 sed -i "s/OpenWrt /${Author} compiled in $(TZ=UTC-8 date "+%Y.%m.%d") @ OpenWrt /g" $ZZZ_PATH       # 增加个性名字 ${Author} 默认为你的github帐号
 
-# sed -i '/CYXluq4wUazHjmCDBCqXF/d' $ZZZ_PATH                                                         # 设置密码为空
+sed -i '/CYXluq4wUazHjmCDBCqXF/d' $ZZZ_PATH                                                         # 设置密码为空
 
-sed -i 's#root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0:0:99999:7:::#root:$1$SgCjz9xF$hxjDmsGaja9mXefc33cCb/:19058:0:99999:7:::#g' $ZZZ  # 设置密码为你的完整密码
+# sed -i 's#root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0:0:99999:7:::#root:$1$SgCjz9xF$hxjDmsGaja9mXefc33cCb/:19058:0:99999:7:::#g' $ZZZ  # 设置密码为你的完整密码
 
 sed -i '/to-ports 53/d' $ZZZ_PATH                                                                   # 删除默认防火墙
 
