@@ -5,14 +5,14 @@
 # 不要一下就拉取别人一个插件包N多插件的，多了没用，增加编译错误，自己需要的才好
 # 修改IP项的EOF于EOF之间请不要插入其他扩展代码，可以删除或注释里面原本的代码
 
-
+git clone https://github.com/vernesong/OpenClash package/luci-app-openclash
 
 cat >$NETIP <<-EOF
 uci set network.lan.ipaddr='10.0.0.1'                      # IPv4 地址(openwrt后台地址)
 uci set network.lan.netmask='255.255.255.0'                   # IPv4 子网掩码
 uci set network.lan.gateway='10.0.0.254'                    # 旁路由设置 IPv4 网关（去掉uci前面的#生效）
 uci set network.lan.broadcast='10.0.0.255'                # 旁路由设置 IPv4 广播（去掉uci前面的#生效）
-uci set network.lan.dns='223.5.5.5 114.114.114.114'          # 旁路由设置 DNS(多个DNS要用空格分开)（去掉uci前面的#生效）
+uci set network.lan.dns='218.30.19.50 61.134.1.5 223.5.5.5 8.8.8.8'          # 旁路由设置 DNS(多个DNS要用空格分开)（去掉uci前面的#生效）
 uci set network.lan.delegate='0'                              # 去掉LAN口使用内置的 IPv6 管理(若用IPV6请把'0'改'1')
 uci set dhcp.@dnsmasq[0].filter_aaaa='1'                      # 禁止解析 IPv6 DNS记录(若用IPV6请把'1'改'0')
 
